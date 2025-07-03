@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/toannguyen3105/ytb-tradeit-crawler/internal/infrastructure"
 	"github.com/toannguyen3105/ytb-tradeit-crawler/internal/usecase"
 )
 
 func main() {
+	start := time.Now()
+
 	repo := infrastructure.NewTradeitRepository()
 	uc := usecase.NewCrawlItemsUsecase(repo)
 
@@ -39,4 +42,7 @@ func main() {
 	}
 
 	fmt.Println("Saved to items.csv")
+
+	elapsed := time.Since(start)
+	fmt.Printf("Done! Execution time is %.2fs\n", elapsed.Seconds())
 }
